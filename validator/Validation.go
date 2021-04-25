@@ -38,6 +38,18 @@ func (e *Validation) ValidationErrorMessage() string {
 	return "Validation error"
 }
 
+func (e *Validation) ToMapData() map[string]interface{}{
+	strinSlic := make([]interface{},0)
+	mapData := make(map[string]interface{})
+	for _, validationError := range e.Errors {
+		strinSlic = append(strinSlic, fmt.Sprintf("%v", validationError))
+	}
+
+	mapData["errors"] = strinSlic
+	
+	return mapData
+}
+
 // Keep tells revel to set a flash cookie on the client to make the validation
 // errors available for the next request.
 // This is helpful  when redirecting the client after the validation failed.
